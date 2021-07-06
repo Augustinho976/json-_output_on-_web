@@ -1,0 +1,220 @@
+ {Math:"B", Literature:"D", Philosophy:"A"}
+{
+    "employee": {
+        "name":       "sonoo", 
+        "salary":      56000, 
+        "married":    true
+    }
+}
+ 
+ Connection con;
+ PreparedStatement pst;  
+
+     public void connect()
+     {
+         try {
+             Class.forName("com.mysql.jdbc.Driver");
+             con = DriverManager.getConnection("jdbc:mysql://localhost/rbcompany", "root","");
+             System.out.println("Successs");
+         }
+         catch (ClassNotFoundException ex)
+         {
+             ex.printStackTrace();
+
+         }
+         catch (SQLException ex)
+         {
+             ex.printStackTrace();
+         }
+     }
+
+//CONNECTION
+ Connection con;
+ PreparedStatement pst;
+ 
+     public void connect()
+     {
+         try {
+             Class.forName("com.mysql.jdbc.Driver");
+             con = DriverManager.getConnection("jdbc:mysql://localhost/rbcompany", "root","");
+             System.out.println("Successs");
+         }
+         catch (ClassNotFoundException ex)
+         {
+             ex.printStackTrace();
+ 
+         }
+         catch (SQLException ex)
+         {
+             ex.printStackTrace();
+         }
+     }
+//ADD RECORDS
+  String empname,salary,mobile;
+              empname = txtName.getText();
+              salary = txtSalary.getText();
+              mobile = txtMobile.getText();
+
+                try {
+                    pst = con.prepareStatement("insert into employee(empname,salary,mobile)values(?,?,?)");
+                    pst.setString(1, empname);
+                    pst.setString(2, salary);
+                    pst.setString(3, mobile);
+                    pst.executeUpdate();
+                    JOptionPane.showMessageDialog(null, "Record Addedddd!!!!!");
+                    table_load();
+                    txtName.setText("");
+                    txtSalary.setText("");
+                    txtMobile.setText("");
+                    txtName.requestFocus();
+                }
+
+                catch (SQLException e1)
+                {
+
+                    e1.printStackTrace();
+                }
+
+            }
+//VIEW RECORDS
+  String empname,salary,mobile;
+              empname = txtName.getText();
+              salary = txtSalary.getText();
+              mobile = txtMobile.getText();
+
+                try {
+                    pst = con.prepareStatement("insert into employee(empname,salary,mobile)values(?,?,?)");
+                    pst.setString(1, empname);
+                    pst.setString(2, salary);
+                    pst.setString(3, mobile);
+                    pst.executeUpdate();
+                    JOptionPane.showMessageDialog(null, "Record Addedddd!!!!!");
+                    table_load();
+                    txtName.setText("");
+                    txtSalary.setText("");
+                    txtMobile.setText("");
+                    txtName.requestFocus();
+                }
+
+                catch (SQLException e1)
+                {
+
+                    e1.printStackTrace();
+                }
+
+            }
+//SEARCH RECORDS
+
+
+     try {
+ 
+            String empid = txtid.getText();
+ 
+            pst = con.prepareStatement("select empname,salary,mobile from employee where id = ?");
+            pst.setString(1, empid);
+            ResultSet rs = pst.executeQuery();
+ 
+            if(rs.next()==true)
+               {
+                 String empname = rs.getString(1);
+                 String emsalary = rs.getString(2);
+                 String emmobile = rs.getString(3);
+ 
+                 txtName.setText(empname);
+                 txtSalary.setText(emsalary);
+                 txtMobile.setText(emmobile);
+ 
+                 }
+               else
+                 {
+                  txtName.setText("");
+                  txtSalary.setText("");
+                  txtMobile.setText("");
+                  JOptionPane.showMessageDialog(null,"Invalid Employee No");
+ 
+                }
+                }
+                catch (SQLException ex) 
+                {
+                       ex.printStackTrace();
+                }
+            }
+//EDIT
+
+
+String empid,empname,salary,mobile;
+                empname = txtName.getText();
+                salary = txtSalary.getText();
+                mobile = txtMobile.getText();
+                empid = txtid.getText();
+                
+      try {
+            pst = con.prepareStatement("update employee set empname = ?,salary = ?,mobile = ? where id = ?");
+            pst.setString(1, empname);
+            pst.setString(2, salary);
+            pst.setString(3, mobile);
+            pst.setString(4, empid);
+ 
+            pst.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Record Updateee!!!!!");
+            table_load();
+            txtName.setText("");
+            txtSalary.setText("");
+            txtMobile.setText("");
+            txtName.requestFocus();
+           }
+ 
+      catch (SQLException e1) 
+         {  
+             e1.printStackTrace();
+         }
+      }
+//DELETE
+
+      String empid;
+      empid = txtid.getText();
+
+     try {
+           pst = con.prepareStatement("delete from employee  where id = ?");
+
+           pst.setString(1, empid);
+
+           pst.executeUpdate();
+           JOptionPane.showMessageDialog(null, "Record Deleteeeeee!!!!!");
+           table_load();
+           txtName.setText("");
+           txtSalary.setText("");
+           txtMobile.setText("");
+           txtName.requestFocus();
+        }
+
+       catch (SQLException e1) 
+          {
+
+               e1.printStackTrace();
+          }
+       }
+
+      String empid;
+      empid = txtid.getText();
+ 
+     try {
+           pst = con.prepareStatement("delete from employee  where id = ?");
+ 
+           pst.setString(1, empid);
+ 
+           pst.executeUpdate();
+           JOptionPane.showMessageDialog(null, "Record Deleteeeeee!!!!!");
+           table_load();
+           txtName.setText("");
+           txtSalary.setText("");
+           txtMobile.setText("");
+           txtName.requestFocus();
+        }
+ 
+       catch (SQLException e1) 
+          {
+ 
+               e1.printStackTrace();
+          }
+       }
